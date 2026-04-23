@@ -13,7 +13,7 @@ This project was created quickly using LLMs to address my personal need: **Learn
 - Essential A1/A2 Dutch vocabulary
 - Example sentences for real usage
 - Simple flashcard interface (flip, next, previous, shuffle)
-- 🔊 **Dutch pronunciation playback** - Listen to native Dutch pronunciation of words and example sentences
+- 🔊 **Dutch pronunciation playback** - Listen to Dutch pronunciation with adjustable speed (Normal, Slower -25%, Slow -50%)
 - Category filtering for targeted learning
 - Fully offline (single HTML file)
 - Works on desktop and tablet browsers
@@ -21,11 +21,12 @@ This project was created quickly using LLMs to address my personal need: **Learn
 ## ▶️ How to Use
 
 1. Open the `index.html` file in any modern browser
-2. Click or tap the card to reveal the translation and example
-3. Use the **🔊 Pronounce Word** and **🔊 Pronounce Example** buttons to listen to native Dutch pronunciation
-4. Use the **Category** filter to study all cards or only a specific type of vocabulary
-5. Use **Previous**, **Next**, and **Shuffle** to browse cards within the current selection
-6. Leave the filter on **All categories** to use the original full-deck behavior
+2. Click or tap the card to reveal the translation and phrase example
+3. Select your preferred **pronunciation speed** (Normal, Slower -25%, or Slow -50%)
+4. Use the **🔊 Pronounce Word** and **🔊 Pronounce Phrase** buttons to listen to Dutch pronunciation
+5. Use the **Category** filter to study all cards or only a specific type of vocabulary
+6. Use **Previous**, **Next**, and **Shuffle** to browse cards within the current selection
+7. Leave the filter on **All categories** to use the original full-deck behavior
 
 ## ⚠️ Notes
 

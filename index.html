@@ -417,6 +417,32 @@
       color: #fff;
     }
 
+    .speed-control {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      width: 100%;
+      max-width: 500px;
+      padding: 12px;
+      background-color: #f5f5f5;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #666;
+    }
+
+    .speed-control label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    .speed-control input[type="radio"] {
+      cursor: pointer;
+    }
+
     footer {
       width: 100%;
       padding: 24px 20px;
@@ -531,7 +557,7 @@
       </div>
       <div class="card-tap-hint">
         <span class="tap-icon">👆</span>
-        <span>Tap card to reveal meaning and example.</span>
+        <span>Tap card to reveal meaning and phrase example.</span>
       </div>
     </div>
 
@@ -556,7 +582,24 @@
     <!-- Audio Controls -->
     <div class="audio-controls">
       <button id="play-word-btn" class="audio-btn">🔊 Pronounce Word</button>
-      <button id="play-example-btn" class="audio-btn">🔊 Pronounce Example</button>
+      <button id="play-example-btn" class="audio-btn">🔊 Pronounce Phrase</button>
+    </div>
+
+    <!-- Speed Control -->
+    <div class="speed-control">
+      <span>Pronunciation speed:</span>
+      <label>
+        <input type="radio" name="speech-speed" value="normal" checked>
+        Normal
+      </label>
+      <label>
+        <input type="radio" name="speech-speed" value="slower">
+        Slower (-25%)
+      </label>
+      <label>
+        <input type="radio" name="speech-speed" value="slow">
+        Slow (-50%)
+      </label>
     </div>
 
     <!-- Controls -->
@@ -1761,6 +1804,7 @@
     // Speech synthesis setup
     const synth = window.speechSynthesis;
     let isSpeaking = false;
+    let speechRate = 1; // Default: normal speed
 
     function titleCaseCategory(value) {
       return value
@@ -1884,7 +1928,7 @@
 
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'nl-NL'; // Dutch language
-      utterance.rate = 1;
+      utterance.rate = speechRate;
       utterance.pitch = 1;
       utterance.volume = 1;
 
@@ -1931,6 +1975,19 @@
     categoryFilter.addEventListener('change', applyCategoryFilter);
     playWordBtn.addEventListener('click', playWordPronunciation);
     playExampleBtn.addEventListener('click', playExamplePronunciation);
+
+    // Speed control listeners
+    document.querySelectorAll('input[name="speech-speed"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        if (this.value === 'slow') {
+          speechRate = 0.5;
+        } else if (this.value === 'slower') {
+          speechRate = 0.75;
+        } else {
+          speechRate = 1;
+        }
+      });
+    });
 
     // Initialize the interface
     populateCategoryFilter();
