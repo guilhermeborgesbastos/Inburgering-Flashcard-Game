@@ -2,6 +2,8 @@
 
 > **Inburgering Flashcard Game** is a browser-based memory game designed to help learners master key Dutch vocabulary and phrases for the inburgering exam (A1/A2 levels). Built with plain HTML, CSS, and JavaScript, it presents flashcards pairing Dutch words with English translations and example sentences. The game supports card flipping, shuffling, navigation controls, and external JSON card data for easier updates.
 
+**Live Demo:** [https://inburgering.guilhermeborgesbastos.com/](https://inburgering.guilhermeborgesbastos.com/)
+
 **P.S:** The goal here is not to be the "state of art" on technical side but to address the problem in a pragmatic way ;)
 
 ## 🎯 Purpose
