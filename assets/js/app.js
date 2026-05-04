@@ -1,6 +1,26 @@
 ﻿// Inburgering Dutch Vocabulary Flashcard Game - Application Logic
 
 const CARDS_DATA_URL = 'assets/data/cards.json';
+const GA_MEASUREMENT_ID = 'G-21RSDRNMG3';
+
+function trackEvent(action, category, label, value) {
+  if (typeof window.gtag !== 'function') return;
+  const params = {
+    event_category: category,
+    event_label: label,
+  };
+  if (typeof value !== 'undefined') {
+    params.value = value;
+  }
+  window.gtag('event', action, params);
+}
+
+function trackPageView(path = window.location.pathname) {
+  if (typeof window.gtag !== 'function') return;
+  window.gtag('event', 'page_view', {
+    page_path: path,
+  });
+}
 
 // Initialize state
 const DEFAULT_CATEGORY = 'general';
@@ -121,6 +141,7 @@ function flipCard() {
   isFlipped = !isFlipped;
   if (isFlipped) {
     card.classList.add('flip');
+    trackEvent('flip_card', 'Flashcard', filteredCards[currentIndex]?.word || 'unknown');
   } else {
     card.classList.remove('flip');
   }
@@ -134,6 +155,7 @@ function nextCard() {
   currentIndex = (currentIndex + 1) % filteredCards.length;
   resetCardFlip();
   updateCard();
+  trackEvent('next_card', 'Flashcard', filteredCards[currentIndex]?.word || 'unknown');
 }
 
 function prevCard() {
@@ -144,6 +166,7 @@ function prevCard() {
   currentIndex = (currentIndex - 1 + filteredCards.length) % filteredCards.length;
   resetCardFlip();
   updateCard();
+  trackEvent('previous_card', 'Flashcard', filteredCards[currentIndex]?.word || 'unknown');
 }
 
 function shuffleCards() {
@@ -158,6 +181,7 @@ function shuffleCards() {
   currentIndex = 0;
   resetCardFlip();
   updateCard();
+  trackEvent('shuffle_deck', 'Flashcard', `shuffle_${filteredCards.length}`);
 }
 
 function applyCategoryFilter() {
@@ -168,6 +192,7 @@ function applyCategoryFilter() {
   currentIndex = 0;
   resetCardFlip();
   updateCard();
+  trackEvent('filter_category', 'Flashcard', titleCaseCategory(selectedCategory));
 }
 
 function populateCategoryFilter() {
@@ -219,6 +244,7 @@ function playWordPronunciation() {
     flipCard();
   }
   const currentCard = filteredCards[currentIndex];
+  trackEvent('play_word_audio', 'Flashcard', currentCard.word);
   speak(currentCard.word, true);
 }
 
@@ -228,6 +254,7 @@ function playExamplePronunciation() {
     flipCard();
   }
   const currentCard = filteredCards[currentIndex];
+  trackEvent('play_example_audio', 'Flashcard', currentCard.word);
   speak(currentCard.example, false);
 }
 
@@ -265,4 +292,7 @@ async function initializeApp() {
 
 // Initialize the interface
 initializeApp();
+window.addEventListener('load', () => {
+  trackPageView();
+});
 
